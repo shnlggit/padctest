@@ -1,6 +1,7 @@
 <?php
 require_once "baseProcessor.php";
 require_once "../code/response/loginResponse.php";
+require_once "../code/myqqconnect.php";
 class LoginProcessor extends BaseProcessor {
 	/**
 	 */
@@ -8,22 +9,41 @@ class LoginProcessor extends BaseProcessor {
 		try {
 			$this->checkParametersExist ( array (
 					'token',
-					'userid' 
+					'openid' 
 			) );
-			$this->checkData ();
 		} catch ( Exception $e ) {
 			$this->showError ( $e->getMessage () );
 			exit ();
 		}
 		
 		$token = $_POST ['token'];
-		$userid = $_POST ['userid'];
+		$openid = $_POST ['openid'];
 		
+		if (! $this->verifyId ( $token, $openid )) {
+			$this->showError ( "Wrong" );
+			exit ();
+		}
+		
+		// simulate get userinfo
 		$userinfo = array (
 				'name' => 'Tom' 
 		);
 		
 		$loginResponse = new LoginResponse ();
 		$loginResponse->build ( $userinfo );
+	}
+	
+	/**
+	 *
+	 * @param unknown $id        	
+	 */
+	public function verifyId($token, $id) {
+		$qc = new MyQC ();
+		$qc->setAccessToken ( $token );
+		$openid = $qc->get_openid ();
+		if ($openid == $id) {
+			return true;
+		}
+		return false;
 	}
 }
