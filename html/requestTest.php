@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form action="processRequest.php" method="post">
-		<input type="hidden" name="requestClass" value="Login" />
+		<input type="hidden" name="requestClass" value="login" />
 		<table>
 			<tr>
 				<td>login</td>
@@ -18,6 +18,18 @@
 			<tr>
 				<td>User ID</td>
 				<td><input type="text" name="openid" value="1" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="send" /></td>
+			</tr>
+		</table>
+	</form>
+	<hr>
+	<form action="processRequest.php" method="post">
+		<input type="hidden" name="requestClass" value="memcachetest" />
+		<table>
+			<tr>
+				<td>memcache test</td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="send" /></td>

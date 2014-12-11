@@ -6,6 +6,8 @@ class LoginProcessor extends BaseProcessor {
 	/**
 	 */
 	public function process() {
+		parent::process();
+		
 		try {
 			$this->checkParametersExist ( array (
 					'token',
